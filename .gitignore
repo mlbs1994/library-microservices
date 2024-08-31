@@ -1,0 +1,17 @@
+# Eclipse-specific files
+.metadata/
+.project
+.classpath
+
+# Eclipse project settings
+.settings/
+
+# Compiled Java classes
+bin/
+
+# Maven or Gradle build output directories (optional)
+target/
+build/
+
+# Ignore Eclipse working sets
+.workingSets/
