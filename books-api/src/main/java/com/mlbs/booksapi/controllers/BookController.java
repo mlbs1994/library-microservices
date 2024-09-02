@@ -1,5 +1,7 @@
 package com.mlbs.booksapi.controllers;
 
+import java.net.URI;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -7,9 +9,13 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import com.mlbs.booksapi.dto.CreateBookDTO;
 import com.mlbs.booksapi.dto.ReadBookDTO;
 import com.mlbs.booksapi.services.BookService;
 
@@ -21,13 +27,20 @@ public class BookController {
 	BookService service;
 	
 	@GetMapping
-	public ResponseEntity<Page<ReadBookDTO>> list(@PageableDefault(size = 5, sort = "title") Pageable pagination) {
+	public ResponseEntity<Page<ReadBookDTO>> list(@PageableDefault(size = 10, sort = "title") Pageable pagination) {
 		return ResponseEntity.ok(service.list(pagination));
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<ReadBookDTO> get(@PathVariable Integer id) {
 		return ResponseEntity.ok(service.read(id)); 
+	}
+	
+	@PostMapping
+	public ResponseEntity<ReadBookDTO> create(@RequestBody CreateBookDTO data, UriComponentsBuilder uriComponentsBuilder) {
+		ReadBookDTO readBookDTO = service.create(data);
+		URI uri = uriComponentsBuilder.path("/books/{id}").buildAndExpand(readBookDTO.id()).toUri();
+		return ResponseEntity.created(uri).body(readBookDTO);
 	}
 	
 
