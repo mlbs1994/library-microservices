@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,6 +18,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.mlbs.booksapi.dto.CreateBookDTO;
 import com.mlbs.booksapi.dto.ReadBookDTO;
+import com.mlbs.booksapi.dto.UpdateBookDTO;
 import com.mlbs.booksapi.services.BookService;
 
 @RestController
@@ -38,9 +40,15 @@ public class BookController {
 	
 	@PostMapping
 	public ResponseEntity<ReadBookDTO> create(@RequestBody CreateBookDTO data, UriComponentsBuilder uriComponentsBuilder) {
-		ReadBookDTO readBookDTO = service.create(data);
-		URI uri = uriComponentsBuilder.path("/books/{id}").buildAndExpand(readBookDTO.id()).toUri();
-		return ResponseEntity.created(uri).body(readBookDTO);
+		ReadBookDTO createdBookDTO = service.create(data);
+		URI uri = uriComponentsBuilder.path("/books/{id}").buildAndExpand(createdBookDTO.id()).toUri();
+		return ResponseEntity.created(uri).body(createdBookDTO);
+	}
+	
+	@PutMapping
+	public ResponseEntity<ReadBookDTO> update(@RequestBody UpdateBookDTO data) {
+		ReadBookDTO updatedBookDTO = service.update(data);
+		return ResponseEntity.ok(updatedBookDTO);
 	}
 	
 

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.mlbs.booksapi.domain.Book;
 import com.mlbs.booksapi.dto.CreateBookDTO;
@@ -17,6 +18,7 @@ public class BookService {
 	@Autowired
 	BookRepository repository;
 	
+	@Transactional
 	public ReadBookDTO create(CreateBookDTO data) {
 		return new ReadBookDTO(repository.save(new Book(data)));
 	}
@@ -29,11 +31,14 @@ public class BookService {
 		return repository.findAll(pagination).map(ReadBookDTO::new);
 	}
 	
-	public void update(UpdateBookDTO data) {
+	@Transactional
+	public ReadBookDTO update(UpdateBookDTO data) {
 		Book book = repository.getReferenceById(data.id());
 		book.updateFields(data);
+		return new ReadBookDTO(book);
 	}
 	
+	@Transactional
 	public void delete(Integer id) {
 		repository.deleteById(id);
 	}

@@ -19,9 +19,9 @@ public record ReadBookDTO(
 		this(
 	            book.getId(),
 	            book.getTitle(),
-	            book.getIsbn(),
-	            book.getInventoryQuantity(),
 	            book.getAuthor(),
+	            book.getInventoryQuantity(),
+	            book.getIsbn(),
 	            book.getPublisherDate(),
 	            book.getPublisher()
 	        );
