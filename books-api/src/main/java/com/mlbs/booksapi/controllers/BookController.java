@@ -2,8 +2,6 @@ package com.mlbs.booksapi.controllers;
 
 import java.net.URI;
 
-import java.net.URI;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,9 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
 
-import com.mlbs.booksapi.dto.CreateBookDTO;
 import com.mlbs.booksapi.dto.CreateBookDTO;
 import com.mlbs.booksapi.dto.ReadBookDTO;
 import com.mlbs.booksapi.dto.UpdateBookDTO;
@@ -34,7 +30,6 @@ public class BookController {
 	BookService service;
 	
 	@GetMapping
-	public ResponseEntity<Page<ReadBookDTO>> list(@PageableDefault(size = 10, sort = "title") Pageable pagination) {
 	public ResponseEntity<Page<ReadBookDTO>> list(@PageableDefault(size = 10, sort = "title") Pageable pagination) {
 		return ResponseEntity.ok(service.list(pagination));
 	}
