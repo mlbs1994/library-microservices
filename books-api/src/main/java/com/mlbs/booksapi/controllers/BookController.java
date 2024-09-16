@@ -54,6 +54,7 @@ public class BookController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+		System.out.println("Delete REST Method - Start");
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
