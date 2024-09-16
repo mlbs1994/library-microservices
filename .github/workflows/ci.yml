@@ -27,5 +27,7 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
+
+    - name: Build books-api with Maven
       run: mvn -B package --file pom.xml
+      working-directory: ./books-api
