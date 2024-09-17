@@ -31,3 +31,9 @@ jobs:
     - name: Build books-api with Maven
       run: mvn -B package --file pom.xml -DskipTests
       working-directory: books-api
+
+    - name: Generate books-api jar artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: books-api.jar
+        path: books-api/target/*.jar
