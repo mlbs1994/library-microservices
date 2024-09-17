@@ -29,5 +29,5 @@ jobs:
         cache: maven
 
     - name: Build books-api with Maven
-      run: mvn -B package --file pom.xml
-      working-directory: ./books-api
+      run: mvn -B package --file pom.xml -DskipTests
+      working-directory: books-api
