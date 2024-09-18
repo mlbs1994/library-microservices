@@ -36,10 +36,7 @@ jobs:
       run: ls -la  
 
     - name: cd books-api
-      run: cd books-api
-
-    - name: ls -la books-api
-      run: ls -la    
+      run: cd books-api && ls -la   
 
     - name: Generate books-api Docker image
       run: docker build -t books-api ./books-api
