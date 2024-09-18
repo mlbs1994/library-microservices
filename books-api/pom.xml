@@ -78,6 +78,7 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<finalName>books-api</finalName>
 				</configuration>
 			</plugin>
 		</plugins>
