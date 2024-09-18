@@ -36,7 +36,7 @@ jobs:
       run: docker build -t books-api .
 
     - name: Saving books-api Docker image as a tar
-      run: docker save books-api:latest -o books-api.tar
+      run: docker save books-api:latest -o ./books-api.tar
 
     - name: Upload Docker Image
       uses: actions/upload-artifact@v4
