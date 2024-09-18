@@ -32,8 +32,14 @@ jobs:
       run: mvn -B package --file pom.xml -DskipTests
       working-directory: books-api
 
-    - name: Generate books-api jar artifact
+    - name: Generate books-api Docker image
+      run: docker build -t books-api .
+
+    - name: Saving books-api Docker image as a tar
+      run: docker save books-api:latest -o books-api.tar
+
+    - name: Upload Docker Image
       uses: actions/upload-artifact@v4
       with:
-        name: books-api.jar
-        path: books-api/target/*.jar
+        name: books-api-image
+        path: books-api.tar         
