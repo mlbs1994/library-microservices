@@ -42,4 +42,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: books-api-image
-        path: books-api.tar         
+        path: books-api.tar
