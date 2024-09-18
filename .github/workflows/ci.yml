@@ -33,7 +33,7 @@ jobs:
       working-directory: books-api
 
     - name: Generate books-api Docker image
-      run: docker build -t books-api .
+      run: docker build -t books-api ./books-api
 
     - name: Saving books-api Docker image as a tar
       run: docker save books-api:latest -o books-api.tar
