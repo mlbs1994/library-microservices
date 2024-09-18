@@ -32,6 +32,9 @@ jobs:
       run: mvn -B package --file pom.xml -DskipTests
       working-directory: books-api
 
+    - name: ls -la
+      run: ls -la  
+
     - name: Generate books-api Docker image
       run: docker build -t books-api ./books-api
 
