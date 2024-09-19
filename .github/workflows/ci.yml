@@ -57,7 +57,7 @@ jobs:
           # Create a batch script to automate deployment - Windows
           echo '@echo off' > final_package/init.bat
           echo 'docker load -i books_api_image.tar' >> final_package/init.bat
-          echo 'docker-compose up -d' >> final_package/init.bat
+          echo 'docker-compose up' >> final_package/init.bat
           
           # Create a final TAR package with everything
           tar -cvf books-api.tar -C final_package .  
