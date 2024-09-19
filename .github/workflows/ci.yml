@@ -46,7 +46,6 @@ jobs:
           cp books_api_image.tar final_package/
           cp books-api/src/main/resources/db/init.sql final_package/
           cp books-api/docker-compose.yml final_package/
-          cp books-api/Dockerfile final_package/
           cp books-api/target/*.jar final_package/  # Include the .jar from Maven build
           
           # Create a shell script to automate deployment - Linux
