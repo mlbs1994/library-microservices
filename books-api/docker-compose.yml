@@ -12,7 +12,7 @@ services:
     networks:
       - app-network
     ports:
-      - "5432:5432"
+      - "5433:5432"
 
   books-api:
     image: books-api:latest
