@@ -21,7 +21,7 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=dev
     depends_on:
-      - postgres
+      - dbpsql
 
 networks:
   app-network:
