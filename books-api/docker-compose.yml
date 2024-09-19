@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  dbpsql:
+    image: postgres:15
+    container_name: dbpsql
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mlbs0156
+    volumes:
+      - ./books-api/src/main/resources/db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-network
+    ports:
+      - "5432:5432"
+
+  books-api:
+    build:
+      context: .
+      dockerfile: ./books-api/Dockerfile
+    container_name: books-api
+    depends_on:
+      - dbpsql
+    networks:
+      - app-network
+    ports:
+      - "8081:8080"
+
+networks:
+  app-network:
+    driver: bridge
