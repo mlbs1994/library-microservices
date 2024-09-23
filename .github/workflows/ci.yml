@@ -19,5 +19,5 @@ jobs:
         cache: maven
 
     - name: run test command
-      run: cat Executando pipeline CI
+      run: echo Running CI pipeline...
       
