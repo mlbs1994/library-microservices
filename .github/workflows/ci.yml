@@ -18,42 +18,6 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - name: Build books-api with Maven
-      run: mvn -B package --file pom.xml -DskipTests
-      working-directory: books-api
-
-    - name: Generate books-api Docker image
-      run: docker build -t books-api ./books-api
-
-    - name: Create final TAR with Docker images and necessary files
-      run: |
-          mkdir final_package
-
-          # Save the Docker image as a TAR file
-          docker save -o books_api_image.tar books-api:latest
-
-          # Copy other required files
-          cp books_api_image.tar final_package/
-          cp books-api/src/main/resources/db/init.sql final_package/
-          cp books-api/docker-compose.yml final_package/
-          cp books-api/target/*.jar final_package/  # Include the .jar from Maven build
-          
-          # Create a shell script to automate deployment - Linux
-          echo '#!/bin/bash' > final_package/init.sh
-          echo 'docker load -i books_api_image.tar' >> final_package/init.sh
-          echo 'docker-compose up -d' >> final_package/init.sh
-          chmod +x final_package/init.sh
-
-          # Create a batch script to automate deployment - Windows
-          echo '@echo off' > final_package/init.bat
-          echo 'docker load -i books_api_image.tar' >> final_package/init.bat
-          echo 'docker-compose up' >> final_package/init.bat
-          
-          # Create a final TAR package with everything
-          tar -cvf books-api.tar -C final_package .  
-
-    - name: Upload Docker Tar package
-      uses: actions/upload-artifact@v4
-      with:
-        name: books-api
-        path: books-api.tar         
+    - name: run test command
+      run: cat Executando pipeline CI
+      
