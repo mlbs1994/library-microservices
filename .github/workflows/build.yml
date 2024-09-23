@@ -1,8 +1,11 @@
 name: build
 
 on:
-  pull_request:
-    branches: [ "master" ]
+  workflow_call:
+    inputs:
+      project-name:
+        required: true
+        type: string
 
 jobs:
   build:
@@ -18,42 +21,42 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - name: Build books-api with Maven
+    - name: Build ${{inputs.project-name}} with Maven
       run: mvn -B package --file pom.xml -DskipTests
-      working-directory: books-api
+      working-directory: {{inputs.project-name}}
 
-    - name: Generate books-api Docker image
-      run: docker build -t books-api ./books-api
+    - name: Generate ${{inputs.project-name}} Docker image
+      run: docker build -t ${{inputs.project-name}} ./${{inputs.project-name}}
 
     - name: Create final TAR with Docker images and necessary files
       run: |
           mkdir final_package
 
           # Save the Docker image as a TAR file
-          docker save -o books_api_image.tar books-api:latest
+          docker save -o ${{inputs.project-name}}_image.tar ${{inputs.project-name}}:latest
 
           # Copy other required files
-          cp books_api_image.tar final_package/
-          cp books-api/src/main/resources/db/init.sql final_package/
-          cp books-api/docker-compose.yml final_package/
-          cp books-api/target/*.jar final_package/  # Include the .jar from Maven build
+          cp ${{inputs.project-name}}_image.tar final_package/
+          cp ${{inputs.project-name}}/src/main/resources/db/init.sql final_package/
+          cp ${{inputs.project-name}}/docker-compose.yml final_package/
+          cp ${{inputs.project-name}}/target/*.jar final_package/  # Include the .jar from Maven build
           
           # Create a shell script to automate deployment - Linux
           echo '#!/bin/bash' > final_package/init.sh
-          echo 'docker load -i books_api_image.tar' >> final_package/init.sh
+          echo 'docker load -i ${{inputs.project-name}}_image.tar' >> final_package/init.sh
           echo 'docker-compose up -d' >> final_package/init.sh
           chmod +x final_package/init.sh
 
           # Create a batch script to automate deployment - Windows
           echo '@echo off' > final_package/init.bat
-          echo 'docker load -i books_api_image.tar' >> final_package/init.bat
+          echo 'docker load -i ${{inputs.project-name}}_image.tar' >> final_package/init.bat
           echo 'docker-compose up' >> final_package/init.bat
           
           # Create a final TAR package with everything
-          tar -cvf books-api.tar -C final_package .  
+          tar -cvf ${{inputs.project-name}}.tar -C final_package .  
 
     - name: Upload Docker Tar package
       uses: actions/upload-artifact@v4
       with:
-        name: books-api
-        path: books-api.tar    
+        name: ${{inputs.project-name}}
+        path: ${{inputs.project-name}}.tar    

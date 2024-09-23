@@ -1,0 +1,25 @@
+name: Release
+
+on:
+  pull_request:
+    types: [ "approved" ]  
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Semantic Versioning
+        run: echo "Set semantic version name for ${{ github.event.pull_request.title }}"
+
+      - name: Download Generated Artifact
+        run: echo "Downloading artifact for ${{ github.event.pull_request.title }}"
+
+      - name: Rename Artifact with Version
+        run: echo "Renaming artifact for ${{ github.event.pull_request.title }}"
+
+      - name: Generate Release
+        run: echo "Generating release for ${{ github.event.pull_request.title }}"
+
+      - name: Share Release
+        run: echo "Sharing release for ${{ github.event.pull_request.title }}"
