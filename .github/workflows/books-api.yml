@@ -10,13 +10,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-
+      
       - name: Continuous Integration
         uses: ./.github/workflows/ci.yml
         with:
-          project-name: "books-api"  
+          project-name: "books-api"
 
       - name: Build
         uses: ./.github/workflows/build.yml 
         with:
-          project-name: "books-api"   
+          project-name: "books-api"
