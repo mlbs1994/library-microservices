@@ -16,4 +16,4 @@ jobs:
 
   users-api:
     name: Users API Workflow
-    uses: ./.github/workflows/users-api.yml 
+    uses: ./.github/workflows/users-api.yml
