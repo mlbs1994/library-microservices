@@ -3,7 +3,7 @@ name: build
 on:
   workflow_call:
     inputs:
-      project-name:
+      project_name:
         required: true
         type: string
 
