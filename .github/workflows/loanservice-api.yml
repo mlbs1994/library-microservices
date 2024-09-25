@@ -1,11 +1,11 @@
-name: Books API Workflow
+name: Loan Service API Workflow
 
 on:
   workflow_call:
 
 jobs:
   pipeline:
-    name: Books API Pipeline
+    name: Loan Service API Pipeline
     uses: ./${{ secrets.WORKFLOWS_DIR }}/pipeline.yml
     with:
-      project_name: books-api
+      project_name: loanservice-api

@@ -22,5 +22,5 @@ jobs:
         cache: maven
 
     - name: run test command
-      run: echo ${{inputs.project-name}} - ${{inputs.project-path}} 
+      run: echo ${{inputs.project-name}}
       

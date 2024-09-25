@@ -1,0 +1,22 @@
+name: Library Microservices CI/CD Pipeline
+
+on:
+  workflow_call:
+    inputs:
+      project_name:
+        required: true
+        type: string
+
+jobs:
+  ci:
+    name: Continuous Integration
+    uses: ./${{ secrets.WORKFLOWS_DIR }}/ci.yml
+    with:
+      project_name: ${{ inputs.project_name }}
+
+  build:
+    name: Build
+    needs: ci
+    uses: ./${{ secrets.WORKFLOWS_DIR }}/build.yml
+    with:
+      project_name: ${{ inputs.project_name }}
