@@ -6,6 +6,6 @@ on:
 jobs:
   pipeline:
     name: Users API Pipeline
-    uses: ./${{ secrets.WORKFLOWS_DIR }}/pipeline.yml
+    uses: ./.github/workflows/pipeline.yml
     with:
       project_name: users-api
