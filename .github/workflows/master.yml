@@ -7,12 +7,12 @@ on:
 jobs:
   books-api:
     name: Books API Workflow
-    uses: ./${{ secrets.WORKFLOWS_DIR }}/books-api.yml  
+    uses: ./.github/workflows/books-api.yml  
 
   loanservice-api:
     name: Loan Service API Workflow
-    uses: ./${{ secrets.WORKFLOWS_DIR }}/loanservice-api.yml
+    uses: ./.github/workflows/loanservice-api.yml
 
   users-api:
     name: Users API Workflow
-    uses: ./${{ secrets.WORKFLOWS_DIR }}/users-api.yml 
+    uses: ./.github/workflows/users-api.yml 
