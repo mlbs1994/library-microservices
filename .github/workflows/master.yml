@@ -3,7 +3,6 @@ name: Library Microservices Main Workflow
 on: 
   pull_request:
     branches: ["master"]
-  workflow_dispatch:
 
 jobs:
   books-api:
