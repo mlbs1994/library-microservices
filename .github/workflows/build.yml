@@ -30,7 +30,6 @@ jobs:
 
     - name: Create final TAR with Docker images and necessary files
       run: |
-          echo secret = ${{ secrets.WORKFLOWS_DIR }}
           mkdir final_package
 
           # Save the Docker image as a TAR file
