@@ -23,7 +23,7 @@ jobs:
 
     - name: Build ${{inputs.project_name}} with Maven
       run: mvn -B package --file pom.xml -DskipTests
-      working-directory: ${{inputs.project_name}}/dir
+      working-directory: ${{inputs.project_name}}
 
     - name: Generate ${{inputs.project_name}} Docker image
       run: docker build -t ${{inputs.project_name}} ./${{inputs.project_name}}
