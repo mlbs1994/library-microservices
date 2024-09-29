@@ -1,0 +1,17 @@
+name: Loan Service API Workflow
+
+on:
+  workflow_call:
+
+jobs:
+  # pipeline:
+  #  name: Loan Service API Pipeline
+  #  uses: ./.github/workflows/pipeline.yml
+  #  with:
+  #    project_name: loanservice-api
+
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run echo
+        run: echo Calling build workflow

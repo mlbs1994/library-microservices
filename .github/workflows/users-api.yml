@@ -1,0 +1,16 @@
+name: Users API Workflow
+
+on:
+  workflow_call:
+
+jobs:
+  # pipeline:
+  # name: Users API Pipeline
+  # uses: ./.github/workflows/pipeline.yml
+  # with:
+  #   project_name: users-api
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run echo
+        run: echo Calling build workflow

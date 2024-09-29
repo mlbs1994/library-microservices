@@ -8,7 +8,7 @@
 		<version>3.3.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.mlbs</groupId>
+	<groupId>com.mlbs1994</groupId>
 	<artifactId>loanservice-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>loanservice-api</name>

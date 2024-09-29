@@ -1,0 +1,62 @@
+name: build
+
+on:
+  workflow_call:
+    inputs:
+      project_name:
+        required: true
+        type: string
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: maven
+
+    - name: Build ${{inputs.project_name}} with Maven
+      run: mvn -B package --file pom.xml -DskipTests
+      working-directory: ${{inputs.project_name}}
+
+    - name: Generate ${{inputs.project_name}} Docker image
+      run: docker build -t ${{inputs.project_name}} ./${{inputs.project_name}}
+
+    - name: Create final TAR with Docker images and necessary files
+      run: |
+          mkdir final_package
+
+          # Save the Docker image as a TAR file
+          docker save -o ${{inputs.project_name}}_image.tar ${{inputs.project_name}}:latest
+
+          # Copy other required files
+          cp ${{inputs.project_name}}_image.tar final_package/
+          cp ${{inputs.project_name}}/src/main/resources/db/init.sql final_package/
+          cp ${{inputs.project_name}}/docker-compose.yml final_package/
+          cp ${{inputs.project_name}}/target/*.jar final_package/  # Include the .jar from Maven build
+          
+          # Create a shell script to automate deployment - Linux
+          echo '#!/bin/bash' > final_package/init.sh
+          echo 'docker load -i ${{inputs.project_name}}_image.tar' >> final_package/init.sh
+          echo 'docker-compose up -d' >> final_package/init.sh
+          chmod +x final_package/init.sh
+
+          # Create a batch script to automate deployment - Windows
+          echo '@echo off' > final_package/init.bat
+          echo 'docker load -i ${{inputs.project_name}}_image.tar' >> final_package/init.bat
+          echo 'docker-compose up' >> final_package/init.bat
+          
+          # Create a final TAR package with everything
+          tar -cvf ${{inputs.project_name}}.tar -C final_package .  
+
+    - name: Upload Docker Tar package
+      uses: actions/upload-artifact@v4
+      with:
+        name: ${{inputs.project_name}}
+        path: ${{inputs.project_name}}.tar    
